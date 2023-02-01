@@ -1,44 +1,65 @@
 package org.owasp;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.*;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.openqa.selenium.*;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(OrderAnnotation.class)
+class ChromeTest {
+    private static FakerData faker;
+    private static WebDriver driver;
 
-public class ChromeTest {
-    private static FakerData faker = new FakerData();
-    private WebDriver driver;
-
-    @Before
-    public void setup() {
+    @BeforeAll
+    static void setup() {
         driver = WebDriverManager.chromedriver().create();
         driver.navigate().to("http://localhost:3000");
         driver.manage().timeouts().implicitlyWait(120, TimeUnit.MILLISECONDS);
+
+        faker = new FakerData();
     }
 
-    @After
-    public void teardown() {
+    @AfterAll
+    static void teardown() {
         driver.quit();
     }
 
     @Test
-    public void registerAccountForUser() throws InterruptedException {
+    @Order(1)
+    void createUserAccount() throws InterruptedException {
         closePopUp();
         navigateToLogin();
-        registerUser("Mother's maiden name?", "beautiful");
+        submitUserRegistrationForm("Mother's maiden name?", "beautiful");
 
+        Thread.sleep(200);
         assertEquals("Registration completed successfully. You can now log in.", getSnackbarMessages());
+    }
+
+    @Test
+    @Order(2)
+    void loginToAccount() {
+        navigateToLogin();
+        submitUserLoginForm();
+
+        driver.findElement(By.id("navbarAccount")).click();
+        assertTrue(driver.findElement(By.id("navbarLogoutButton")).isDisplayed());
+    }
+
+    private void submitUserLoginForm() {
+        driver.findElement(By.id("email")).sendKeys(faker.getEmail());
+        driver.findElement(By.id("password")).sendKeys(faker.getPassword());
+        driver.findElement(By.id("loginButton")).click();
     }
 
     private String getSnackbarMessages() {
         return driver.findElement(By.cssSelector(".mat-simple-snack-bar-content")).getText();
     }
 
-    private void registerUser(String securityQuestion, String securityAnswer) throws InterruptedException {
+    private void submitUserRegistrationForm(String securityQuestion, String securityAnswer) {
         driver.findElement(By.id("newCustomerLink")).click();
 
         driver.findElement(By.id("emailControl")).sendKeys(faker.getEmail());
@@ -51,8 +72,6 @@ public class ChromeTest {
         driver.findElement(By.id("securityAnswerControl")).sendKeys(securityAnswer);
 
         driver.findElement(By.id("registerButton")).click();
-
-        Thread.sleep(200);
     }
 
     private void navigateToLogin() {
