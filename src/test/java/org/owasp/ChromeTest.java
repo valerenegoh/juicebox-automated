@@ -5,9 +5,11 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.openqa.selenium.*;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.owasp.JuiceShop.Item.*;
 
 @TestMethodOrder(OrderAnnotation.class)
 class ChromeTest {
@@ -55,9 +57,19 @@ class ChromeTest {
     @Order(3)
     void addItemToCart() {
         removeOverlay();
-        juiceShop.addToCart("AppleJuice");
+        juiceShop.addToCart(APPLE_JUICE);
 
         assertEquals("Placed Apple Juice (1000ml) into basket.", getSnackbarMessageAndClose());
+    }
+
+    @Test
+    @Order(4)
+    void removeItemFromCart() throws InterruptedException {
+        juiceShop.removeItem(APPLE_JUICE);
+
+        Thread.sleep(200);
+        List<WebElement> appleJuice = driver.findElements(juiceShop.cartByXpath(APPLE_JUICE.name()));
+        assertEquals(0, appleJuice.size());
     }
 
     private void removeOverlay() {
