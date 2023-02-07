@@ -1,4 +1,4 @@
-package org.owasp;
+package org.owasp.ui;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
@@ -10,7 +10,7 @@ import java.time.Duration;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.owasp.JuiceShop.Item.*;
+import static org.owasp.ui.JuiceShop.Item.*;
 
 @TestMethodOrder(OrderAnnotation.class)
 class ChromeTest {

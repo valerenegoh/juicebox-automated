@@ -1,10 +1,8 @@
-package org.owasp;
+package org.owasp.ui;
 
 import lombok.Getter;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
-
-import java.time.Duration;
 
 @Getter
 public class LoginPage {

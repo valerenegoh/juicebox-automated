@@ -1,4 +1,4 @@
-package org.owasp;
+package org.owasp.ui;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
@@ -8,7 +8,7 @@ import java.time.Duration;
 import java.util.Map;
 
 import static java.util.Map.entry;
-import static org.owasp.JuiceShop.Item.*;
+import static org.owasp.ui.JuiceShop.Item.*;
 
 public class JuiceShop {
     private final WebDriver driver;

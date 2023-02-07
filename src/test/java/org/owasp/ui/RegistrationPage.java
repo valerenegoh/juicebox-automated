@@ -1,9 +1,7 @@
-package org.owasp;
+package org.owasp.ui;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
-
-import java.time.Duration;
 
 public class RegistrationPage {
     private final WebDriver driver;

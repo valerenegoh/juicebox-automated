@@ -1,4 +1,4 @@
-package org.owasp;
+package org.owasp.ui;
 
 import com.github.javafaker.Faker;
 import lombok.Getter;
