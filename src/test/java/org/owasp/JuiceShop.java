@@ -57,6 +57,12 @@ public class JuiceShop {
         return By.xpath(String.format("//mat-cell[contains(text(),%s)]/parent::mat-row", item));
     }
 
+    public BigDecimal getPrice(Item item) {
+        WebElement itemCard = getItemCardElement(item);
+        String price = itemCard.findElement(By.cssSelector(".item-price > span")).getText();
+        return new BigDecimal(price.substring(0, price.length() - 1));
+    }
+
     private WebElement getItemCardElement(Item item) {
         int pos = itemPositions.get(item);
         return driver.findElement(By.cssSelector(String.format("mat-grid-tile:nth-child(%d) > div > mat-card", pos)));
