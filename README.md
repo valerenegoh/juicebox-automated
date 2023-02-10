@@ -1,3 +1,12 @@
+To run:
+
+Launch Rancher Desktop
+```
+kubectl run --image bkimminich/juice-shop juice-shop
+kubectl run --image=bkimminich/juice-shop juice-shop
+kubectl port-forward pods/juice-shop 3000:3000
+```
+
 Scenario 1: Create user account
 1. Account >  Login
 2. Not yet a customer 

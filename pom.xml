@@ -17,6 +17,11 @@
           <target>9</target>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>io.gatling</groupId>
+        <artifactId>gatling-maven-plugin</artifactId>
+        <version>4.2.9</version>
+      </plugin>
     </plugins>
   </build>
 
@@ -77,6 +82,11 @@
       <groupId>net.minidev</groupId>
       <artifactId>json-smart</artifactId>
       <version>2.3</version>
+    </dependency>
+    <dependency>
+      <groupId>io.gatling.highcharts</groupId>
+      <artifactId>gatling-charts-highcharts</artifactId>
+      <version>3.9.0</version>
     </dependency>
   </dependencies>
 </project>
